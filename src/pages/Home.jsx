@@ -7,6 +7,7 @@ import Sidebar from "../components/Sidebar";
 import Users from "./Users";
 import Dashboard from "./DashBoard";
 import Movies from "./Movies";
+import Lists from "./Lists";
 
 const Container = styled.div`
   display: flex;
@@ -24,6 +25,8 @@ function Home() {
         return <Users />;
       case "movies":
         return <Movies />;
+      case "lists":
+        return <Lists />;
 
       default:
         return <Dashboard />;

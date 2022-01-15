@@ -1,5 +1,6 @@
 {
   "name": "admin_panel",
+  "homepage": "https://will1001.github.io/appbimbel-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

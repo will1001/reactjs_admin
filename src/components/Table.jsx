@@ -80,7 +80,10 @@ function Table({ head, body, formInput }) {
             <Tr key={i}>
               {Object.keys(e).map(
                 (propertyName, j) =>
-                  j !== 0 && <Td key={j}>{e[propertyName]}</Td>
+                  j !== 0 &&
+                  !Array.isArray(e[propertyName]) && (
+                    <Td key={j}>{e[propertyName]}</Td>
+                  )
               )}
               <Td>
                 <CTAContainer>

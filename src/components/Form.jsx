@@ -51,6 +51,24 @@ const SelectInput = (props) => (
   </div>
 );
 
+const MultipleSelectInput = (props) => (
+  <div>
+    <Label>{props.text}</Label>
+    <select
+      multiple
+      name={props.name}
+      onChange={props.onChange}
+      style={{ height: "280px" }}
+    >
+      {props.options.map((option, i) => (
+        <option key={i} value={option.id}>
+          {option.title}
+        </option>
+      ))}
+    </select>
+  </div>
+);
+
 const ImageInput = (props) => (
   <div>
     <Label>{props.text}</Label>
@@ -87,6 +105,7 @@ function Form() {
   const dispatch = useDispatch();
   const { data, form } = useSelector((state) => state.form);
   const [file, setFile] = useState([]);
+  const [list, setList] = useState(null);
 
   const initialFormData = {};
   Object.keys(data).forEach((e) => {
@@ -102,6 +121,11 @@ function Form() {
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const onChangeMultiple = (e) => {
+    let value = Array.from(e.target.selectedOptions, (option) => option.value);
+    setList({ ...list, [e.target.name]: value });
   };
 
   const onFileChange = (e) => {
@@ -127,6 +151,20 @@ function Form() {
           <SelectInput
             onChange={(e) => {
               onChange(e);
+            }}
+            text={f.text}
+            name={f.name}
+            options={f.options}
+            value={formData[f.name]}
+          />
+        </div>
+      );
+    } else if (f.type === "MultipleSelect") {
+      return (
+        <div key={i}>
+          <MultipleSelectInput
+            onChange={(e) => {
+              onChangeMultiple(e);
             }}
             text={f.text}
             name={f.name}

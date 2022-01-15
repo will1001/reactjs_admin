@@ -3,9 +3,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route exact path="/" element={<Home />} />
         {/* <Route path="/form" element={<Form />} /> */}
         {/* <Route path="/products/:category" element={<ProductList />} />
         <Route path="/product/:id" element={<Product />} />
