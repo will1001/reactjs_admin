@@ -1,25 +1,30 @@
-import Home from "./pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Topbar from "./components/Topbar";
+import Sidebar from "./components/Sidebar";
+import styled from "styled-components";
+import { routes } from "./Routes";
 
+const Container = styled.div`
+  display: flex;
+`;
+
+const RightContainer = styled.div`
+  width: 100%;
+`;
 function App() {
   return (
     <BrowserRouter basename="/">
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        {/* <Route path="/form" element={<Form />} /> */}
-        {/* <Route path="/products/:category" element={<ProductList />} />
-        <Route path="/product/:id" element={<Product />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/success" element={<Success />} />
-        <Route
-          path="/login"
-          element={false ? <Navigate to={"/"} /> : <Login />}
-        />
-        <Route
-          path="/register"
-          element={false ? <Navigate to={"/"} /> : <Register />}
-        /> */}
-      </Routes>
+      <Container>
+        <Sidebar />
+        <RightContainer>
+          <Topbar />
+          <Routes>
+            {routes.map((e, i) => (
+              <Route key={i} exact path={e.route} element={e.element} />
+            ))}
+          </Routes>
+        </RightContainer>
+      </Container>
     </BrowserRouter>
   );
 }

@@ -1,13 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import { changeMenu } from "../redux/ThemeRedux";
-import { useDispatch, useSelector } from "react-redux";
 import { listMenu } from "./SidebarMenuList";
+import { useLocation } from "react-router";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   width: 200px;
   height: 150vh;
   background-color: #2c323f;
+  /* position: absolute; */
+  /* left: 0; */
+  /* top: 0; */
 `;
 
 const PartMenu = styled.div`
@@ -47,8 +50,7 @@ const LogoText = styled.span`
 `;
 
 function Sidebar() {
-  const dispatch = useDispatch();
-  const { menuSelected } = useSelector((state) => state.theme);
+  const location = useLocation();
 
   return (
     <Container>
@@ -62,14 +64,18 @@ function Sidebar() {
             <PartMenu>{menu.title}</PartMenu>
             {menu.subMenu.map((data, j) => {
               return (
-                <MenuButton
+                <Link
                   key={j}
-                  onClick={() => dispatch(changeMenu(data.link))}
-                  isActive={menuSelected === data.link}
+                  style={{ textDecoration: "none" }}
+                  to={`/${data.link}`}
                 >
-                  {data.icon}
-                  <MenuButtonText>{data.title}</MenuButtonText>
-                </MenuButton>
+                  <MenuButton
+                    isActive={location.pathname.split("/")[1] === data.link}
+                  >
+                    {data.icon}
+                    <MenuButtonText>{data.title}</MenuButtonText>
+                  </MenuButton>
+                </Link>
               );
             })}
           </div>

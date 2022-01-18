@@ -1,31 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import Topbar from "../components/Topbar";
 import Table from "../components/Table";
+import { getUsers } from "../redux/apiCalls";
+import { useDispatch, useSelector } from "react-redux";
 
 const Container = styled.div`
   width: 100%;
 `;
 
-const head = ["Username", "Email", "Password", "profilePic", "isAdmin"];
-
-const body = [
-  {
-    id: "1",
-    username: "Username",
-    email: "Email@gmail.com",
-    password: "Password",
-    profilePic: "Address",
-    isAdmin: "Male",
-  },
-  {
-    id: "1",
-    username: "Username",
-    email: "Email@gmail.com",
-    password: "Password",
-    profilePic: "Address",
-    isAdmin: "Male",
-  },
+const headTable = [
+  { paramName: "username", headTitle: "Username" },
+  { paramName: "email", headTitle: "Email" },
+  { paramName: "password", headTitle: "Password" },
+  { paramName: "profilePic", headTitle: "ProfilePic" },
+  { paramName: "isAdmin", headTitle: "Is Admin" },
 ];
 
 const formInput = [
@@ -65,11 +53,21 @@ const formInput = [
 ];
 
 function Users() {
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.users.users);
+
+  useEffect(() => {
+    getUsers(dispatch);
+  }, [dispatch]);
   return (
     <Container>
-      <Topbar />
       <h1>Users</h1>
-      <Table head={head} body={body} formInput={formInput} />
+      <Table
+        headTable={headTable}
+        bodyTable={users}
+        formInput={formInput}
+        tableDataName={"users"}
+      />
     </Container>
   );
 }

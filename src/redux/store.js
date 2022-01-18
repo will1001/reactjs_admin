@@ -1,6 +1,7 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import themeReducer from "./ThemeRedux";
-import formReducer from "./FormRedux";
+import moviesRedux from "./MoviesRedux";
+import usersRedux from "./UsersRedux";
+import listsRedux from "./ListsRedux";
 import {
   persistStore,
   persistReducer,
@@ -19,7 +20,11 @@ const persistConfig = {
   storage,
 };
 
-const rootReducer = combineReducers({ theme: themeReducer, form: formReducer });
+const rootReducer = combineReducers({
+  movies: moviesRedux,
+  users: usersRedux,
+  lists: listsRedux,
+});
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

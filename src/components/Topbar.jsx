@@ -7,8 +7,9 @@ const Container = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 10px;
   box-shadow: 1px 0px 1px #888888;
+  background-color: #cccccc;
+  width: 100%;
 `;
 
 const Right = styled.div`
@@ -18,6 +19,7 @@ const Right = styled.div`
 
 const PotoProfileIcon = styled.div`
   cursor: pointer;
+  margin: 10px;
 `;
 
 const PotoProfileMenu = styled.div`

@@ -10,7 +10,7 @@ export const listMenu = [
       {
         icon: <DashboardIcon />,
         title: "Dashboard",
-        link: "dashboard",
+        link: "",
       },
       {
         icon: <AccountCircleIcon />,

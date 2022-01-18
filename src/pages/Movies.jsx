@@ -1,58 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import Topbar from "../components/Topbar";
 import Table from "../components/Table";
+import { getMovies } from "../redux/apiCalls";
+import { useDispatch, useSelector } from "react-redux";
 
 const Container = styled.div`
   width: 100%;
 `;
 
-const head = [
-  "Title",
-  "Description",
-  "Year",
-  "Genre",
-  "Duration",
-  "Limit",
-  "Image",
-  "Is Series",
-  "Title Image",
-  "Thumbnail Image",
-  "Trailer",
-  "Video",
-];
-
-const body = [
-  {
-    id: "1",
-    title: "title",
-    description: "description",
-    year: 2012,
-    genre: "genre",
-    duration: "duration",
-    limit: 1234,
-    image: "image",
-    isSeries: "isSeries",
-    title_image: "title_image",
-    thumbnail_image: "thumbnail_image",
-    trailer: "trailer",
-    video: "video",
-  },
-  {
-    id: "2",
-    title: "title",
-    description: "description",
-    year: 2021,
-    genre: "genre",
-    duration: "duration",
-    limit: 6767676,
-    image: "image",
-    isSeries: "isSeries",
-    title_image: "title_image",
-    thumbnail_image: "thumbnail_image",
-    trailer: "trailer",
-    video: "video",
-  },
+const headTable = [
+  { paramName: "title", headTitle: "Title" },
+  { paramName: "description", headTitle: "Description" },
+  { paramName: "year", headTitle: "Year" },
+  { paramName: "genre", headTitle: "Genre" },
+  { paramName: "limit", headTitle: "Limit" },
+  { paramName: "image", headTitle: "Image" },
+  { paramName: "isSeries", headTitle: "Is Series" },
+  { paramName: "title_image", headTitle: "Title Image" },
+  { paramName: "thumbnail_image", headTitle: "Thumbnail Image" },
+  { paramName: "trailer", headTitle: "Trailer" },
+  { paramName: "video", headTitle: "Video" },
 ];
 
 const formInput = [
@@ -78,12 +45,6 @@ const formInput = [
     text: "Genre",
     type: "text",
     name: "genre",
-    options: null,
-  },
-  {
-    text: "Duration",
-    type: "text",
-    name: "duration",
     options: null,
   },
   {
@@ -134,11 +95,22 @@ const formInput = [
 ];
 
 function Movies() {
+  const dispatch = useDispatch();
+  const movies = useSelector((state) => state.movies.movies);
+
+  useEffect(() => {
+    getMovies(dispatch);
+  }, [dispatch]);
+
   return (
     <Container>
-      <Topbar />
       <h1>Movies</h1>
-      <Table head={head} body={body} formInput={formInput} />
+      <Table
+        headTable={headTable}
+        bodyTable={movies}
+        formInput={formInput}
+        tableDataName="movies"
+      />
     </Container>
   );
 }

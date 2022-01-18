@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import StatisticCard from "../components/StatisticCard";
-import Topbar from "../components/Topbar";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 
@@ -20,7 +19,6 @@ const Row = styled.div`
 function DashBoard() {
   return (
     <Container>
-      <Topbar />
       <Row>
         <StatisticCard
           Icon={AccountCircleIcon}
